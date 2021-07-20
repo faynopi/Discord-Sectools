@@ -14,7 +14,7 @@ client.remove_command("help")
 
 
 ##############################
-# decrypt
+# Decrypt
 ##############################
 
 @ client.command()
@@ -53,10 +53,11 @@ async def decrypt(ctx, *arg):
         except Exception:
             print(f"Couldn't decode the: {' '.join(arg[1:])}")
             await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
+    return
 
 
 ##############################
-# encrypt
+# Encrypt
 ##############################
 
 @ client.command()
@@ -95,6 +96,7 @@ async def encrypt(ctx, *arg):
         except Exception:
             print(f"Couldn't encoded the: {' '.join(arg[1:])}")
             await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+    return
 
 
 ##############################
@@ -104,7 +106,7 @@ async def encrypt(ctx, *arg):
 @ client.command()
 async def info(ctx):
     embed = discord.Embed(title="H4ck3r T00l",
-                          description="A tool for hacker made by hackers", color=0xe73232)
+                          description="A tool for hackers made by N00B5", color=0xe73232)
     embed.set_author(name="Join our discord server", url="https://discord.gg/aeay3v3cfX",
                      icon_url="https://github.com/Itsnexn/Discord-H4ck3rT00ls/blob/main/R3versePl4net_logo.jpg?raw=true")
     embed.set_thumbnail(
@@ -112,9 +114,9 @@ async def info(ctx):
     embed.add_field(name="$Github", value="Bot repo", inline=True)
     embed.add_field(name="launched at:", value="june 18th of 2021", inline=False)
     embed.add_field(name="Help Command:", value="$help", inline=True)
-    embed.set_footer(text="Hack the planet | made by @itsnexn with ❤️")
+    embed.set_footer(text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
     await ctx.send(embed=embed)
-
+    return
 
 ##############################
 # Help
@@ -129,16 +131,17 @@ async def help(ctx):
                     value="arg[0]=type arg[1]=input | for more info use $decrypt", inline=False)
     embed.add_field(name="$encrypt",
                     value="arg[0]=type arg[1]=input | for more info  use $encrypt", inline=False)
-    embed.add_field(name="$hash", value="Hash identifier", inline=True)
-    embed.add_field(
-        name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
-    embed.add_field(name="$privesc",
-                    value="Show some cool scripts and commands for Privilege escalation", inline=False)
-    embed.add_field(name="$lfi", value="show lfi payloads", inline=False)
+    # embed.add_field(name="$hash", value="Hash identifier", inline=True)
+    # embed.add_field(
+        # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
+    # embed.add_field(name="$privesc",
+                    # value="Show some cool scripts and commands for Privilege escalation", inline=False)
+    # embed.add_field(name="$lfi", value="show lfi payloads", inline=False)
     embed.add_field(name="$info", value="Bot info", inline=False)
-    embed.set_footer(text="Hack the planet | made by @itsnexn with ❤️")
+    embed.set_footer(text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
     await ctx.author.send(embed=embed)
     await ctx.send("I send you the command list! check your DM...")
+    return
 
 """
 ##############################
@@ -164,6 +167,5 @@ async def on_message(message):
 async def on_ready():
     await client.change_presence(activity=discord.CustomActivity("Hello World", emoji="🖥️"))
     print('Im ready!')
-
 
 client.run(environ['TOKEN'])
