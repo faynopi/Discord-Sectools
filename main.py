@@ -1,15 +1,12 @@
 import discord
 from discord.ext import commands
-import random
-import os 
-
-# joke_api
-import joke_api
+from random import choice
+from os import environ
 
 # Help Pages
 from Help import *
 
-# for decode
+# For Encoding and Decoding
 from DecodeEncode import *
 
 client = commands.Bot(command_prefix='$')
@@ -20,53 +17,47 @@ client.remove_command("help")
 # decrypt
 ##############################
 
-
 @ client.command()
 async def decrypt(ctx, *arg):
     if not arg:
-        print("$decrypt Help massage sended")
+        print("$decrypt Help massage sent")
         await ctx.send(decryptHelp)
     elif arg[0] == "b64":
         try:
-            print(f"{arg[1]} decoded from base64")
-            await ctx.send(f"\nhere you go: `{base64Decode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} decoded from base64")
+            await ctx.send(f"\nHere you go: `{base64Decode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"Sorry i couldn't decode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{arg[1]}` as {arg[0]}\n try to read the $decrypt or $help for more information")
+            print(f"Sorry i couldn't decode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
 
     elif arg[0] == "hex":
-
         try:
-            print(f"{arg[1]} decoded from hex")
-            await ctx.send(f"\nhere you go: `{hexDecode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} decoded from hex")
+            await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"couldn't decode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{arg[1]}` as {arg[0]}\n try to read the $decrypt or $help for more information")
+            print(f"Couldn't decode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
 
     elif arg[0] == "rot13":
         try:
-            print(f"{arg[1]} decoded from rot13")
-            await ctx.send(f"\nhere you go: `{rot13Decode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} decoded from rot13")
+            await ctx.send(f"\nHere you go: `{rot13Decode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"couldn't decode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{arg[1]}` as {arg[0]}\n try to read the $decrypt or $help for more information")
+            print(f"Couldn't decode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
 
     elif arg[0] == "url":
         try:
-            print(f"{arg[1]} URL decoded")
-            await ctx.send(f"\nhere you go: `{urlDecode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} URL decoded")
+            await ctx.send(f"\nHere you go: `{urlDecode(' '.join(arg[1:]))}`")
         except Exception:
+            print(f"Couldn't decode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
 
-            print(f"couldn't decode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{arg[1]}` as {arg[0]}\n try to read the $decrypt or $help for more information")
 
 ##############################
 # encrypt
 ##############################
-
 
 @ client.command()
 async def encrypt(ctx, *arg):
@@ -75,45 +66,40 @@ async def encrypt(ctx, *arg):
         await ctx.send(encryptHelp)
     elif arg[0] == "b64":
         try:
-            print(f"{arg[1]} encoded from base64")
-            await ctx.send(f"\nhere you go: `{base64Encode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} encoded from base64")
+            await ctx.send(f"\nHere you go: `{base64Encode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"Sorry i couldn't encode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't encode the `{arg[1]}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+            print(f"Sorry i couldn't encode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
 
     elif arg[0] == "hex":
         try:
-            print(f"{arg[1]} encoded to hex")
-            await ctx.send(f"\nhere you go: `{hexEncode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} encoded to hex")
+            await ctx.send(f"\nHere you go: `{hexEncode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"couldn't encode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't encode the `{arg[1]}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+            print(f"Couldn't encode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
 
     elif arg[0] == "rot13":
         try:
-            print(f"{arg[1]} encoded from rot13")
-            await ctx.send(f"\nhere you go: `{rot13Encode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} encoded from rot13")
+            await ctx.send(f"\nHere you go: `{rot13Encode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"couldn't decode the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't encode the `{arg[1]}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+            print(f"Couldn't decode the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
 
     elif arg[0] == "url":
         try:
-            print(f"{arg[1]} URL encoded")
-            await ctx.send(f"\nhere you go: `{urlEncode(arg[1])}`")
+            print(f"{' '.join(arg[1:])} URL encoded")
+            await ctx.send(f"\nHere you go: `{urlEncode(' '.join(arg[1:]))}`")
         except Exception:
-
-            print(f"couldn't encoded the: {arg[1]}")
-            await ctx.send(f"\nSorry i couldn't encode the `{arg[1]}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+            print(f"Couldn't encoded the: {' '.join(arg[1:])}")
+            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
 
 
 ##############################
 # Bot info
 ##############################
-
 
 @ client.command()
 async def info(ctx):
@@ -133,7 +119,6 @@ async def info(ctx):
 ##############################
 # Help
 ##############################
-
 
 @ client.command(pass_context=True)
 async def help(ctx):
@@ -155,20 +140,7 @@ async def help(ctx):
     await ctx.author.send(embed=embed)
     await ctx.send("I send you the command list! check your DM...")
 
-
-##############################
-# Joke
-##############################
-@ client.command()
-async def joke(ctx):
-    jk = joke_api.get_joke()
-    print(jk)
-
-    if jk == False:
-        await ctx.channel.send("Couldn't get joke from API. Try again later.")
-    else:
-        await ctx.channel.send(jk['setup'] + '\n' + jk['punchline'])
-
+"""
 ##############################
 # Events
 ##############################
@@ -176,18 +148,17 @@ async def joke(ctx):
 gretings = ["hi", "hello", "watsup", "yo"]
 gretings_res = ["Hello!", "yo, wyd?", "Hey i heard you!", "Welcome back!"]
 
-
 @ client.listen()
 async def on_message(message):
     for greting in gretings:
         if greting in message.content.lower() and not message.author.bot:
-            await message.channel.send(f"{message.author.mention}\n {random.choice(gretings_res)}")
+            await message.channel.send(f"{message.author.mention}\n {choice(gretings_res)}")
             await client.process_commands(message)
+"""
 
 ##############################
 # On ready
 ##############################
-
 
 @ client.event
 async def on_ready():
@@ -195,4 +166,4 @@ async def on_ready():
     print('Im ready!')
 
 
-client.run(os.environ["TOKEN"])
+client.run(environ['TOKEN'])
