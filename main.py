@@ -9,6 +9,9 @@ from Help import *
 # For Encoding and Decoding
 from DecodeEncode import *
 
+# Hash Identifier
+from HashID import HashID
+
 client = commands.Bot(command_prefix='$')
 client.remove_command("help")
 
@@ -113,6 +116,25 @@ async def encrypt(ctx, *arg):
 
 
 ##############################
+# Hash Identifier
+##############################
+
+@ client.command()
+async def hashid(ctx, *arg):
+    if not arg:
+        await ctx.send(hashidHelp)
+        return
+    for i in arg[1:]:
+        res = HashID(i)
+        if not res:
+            await ctx.send("Hash not found :(")
+            return
+        msg = f"Two most possible types for `{i}` :\n{res[0]}\n{res[1]}"
+        await ctx.send(msg)
+    return
+
+
+##############################
 # Bot info
 ##############################
 
@@ -144,7 +166,7 @@ async def help(ctx):
                     value="arg[0]=type arg[1]=input | for more info use $decrypt", inline=False)
     embed.add_field(name="$encrypt",
                     value="arg[0]=type arg[1]=input | for more info  use $encrypt", inline=False)
-    # embed.add_field(name="$hash", value="Hash identifier", inline=True)
+    embed.add_field(name="$hashid", value="Hash identifier", inline=True)
     # embed.add_field(
         # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
     # embed.add_field(name="$privesc",
