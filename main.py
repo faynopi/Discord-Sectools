@@ -32,8 +32,12 @@ async def decrypt(ctx, *arg):
 
     elif arg[0] == "hex":
         try:
-            print(f"{' '.join(arg[1:])} decoded from hex")
-            await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[1:]))}`")
+            if arg[1] != '-s':
+                print(f"{' '.join(arg[1:])} decoded from hex")
+                await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[1:]))}`")
+            else:
+                print(f"{' '.join(arg[3:]).replace(arg[2],'')} decoded from hex")
+                await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[3:]).replace(arg[2],''))}`")
         except Exception:
             print(f"Couldn't decode the: {' '.join(arg[1:])}")
             await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
@@ -75,8 +79,17 @@ async def encrypt(ctx, *arg):
 
     elif arg[0] == "hex":
         try:
-            print(f"{' '.join(arg[1:])} encoded to hex")
-            await ctx.send(f"\nHere you go: `{hexEncode(' '.join(arg[1:]))}`")
+            if arg[1] != '-s':
+                print(f"{' '.join(arg[1:])} encoded to hex")
+                await ctx.send(f"\nHere you go: `{hexEncode(' '.join(arg[1:]))}`")
+            else:
+                print(f"{' '.join(arg[3:])} encoded to hex")
+                tmp = hexEncode(' '.join(arg[3:]))
+                encrypted = ""
+                for i in range(len(tmp),2):
+                    encrypted += str(arg[2])
+                    encrypted += tmp[i:i+2]
+                await ctx.send(f"\nHere you go: `{encrypted}`")
         except Exception:
             print(f"Couldn't encode the: {' '.join(arg[1:])}")
             await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
