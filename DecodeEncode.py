@@ -1,39 +1,28 @@
-import codecs
-import base64
-import urllib.parse
+from codecs import encode
+from base64 import b64encode, b64decode
+from urllib.parse import quote, unquote
 
 
 # Hex
 def hexDecode(arg):
     return bytes.fromhex(arg).decode("UTF-8")
-
-
 def hexEncode(arg):
-    return codecs.encode(arg, "hex_codec").decode("UTF-8")
-
+    return encode(arg.encode(), "hex_codec").decode("UTF-8")
 
 # Rot13
 def rot13Decode(arg):
-    return codecs.decode(arg, "rot_13")
-
-
+    return encode(arg, "rot_13")
 def rot13Encode(arg):
-    return codecs.encode(arg, "rot_13")
-
+    return encode(arg, "rot_13")
 
 # base64
 def base64Decode(arg):
-    return base64.b64decode(arg).decode("UTF-8")
-
-
+    return b64decode(arg).decode("UTF-8")
 def base64Encode(arg):
-    return base64.b64encode(arg)
-
+    return b64encode(arg.encode()).decode()
 
 # URL
 def urlEncode(arg):
-    return urllib.parse.quote(str)
-
-
+    return quote(arg)
 def urlDecode(arg):
-    return urllib.parse.unquote(str)
+    return unquote(arg)
