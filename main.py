@@ -87,9 +87,9 @@ async def encrypt(ctx, *arg):
                 await ctx.send(f"\nHere you go: `{hexEncode(' '.join(arg[1:]))}`")
             else:
                 print(f"{' '.join(arg[3:])} encoded to hex")
-                tmp = hexEncode(' '.join(arg[3:]))
+                tmp = str(hexEncode(' '.join(arg[3:])))
                 encrypted = ""
-                for i in range(len(tmp),2):
+                for i in range(0,len(tmp),2):
                     encrypted += str(arg[2])
                     encrypted += tmp[i:i+2]
                 await ctx.send(f"\nHere you go: `{encrypted}`")
@@ -124,13 +124,17 @@ async def hashid(ctx, *arg):
     if not arg:
         await ctx.send(hashidHelp)
         return
-    for i in arg[1:]:
+    for i in arg[0:]:
         res = HashID(i)
         if not res:
-            await ctx.send("Hash not found :(")
-            return
-        msg = f"Two most possible types for `{i}` :\n{res[0]}\n{res[1]}"
-        await ctx.send(msg)
+            await ctx.send(f"Hash (`{i}`) not found :(\n"+''.join(['-' for _ in range(45)]))
+        else:
+            if len(res) == 2:
+                msg = f"Two most possible types for `{i}` :\n1) {res[0]}\n2) {res[1]}\n"+''.join(['-' for _ in range(45)])
+                await ctx.send(msg)
+            elif len(res) == 1:
+                msg = f"Most possible type for `{i}` :\n1) {res[0]}\n"+''.join(['-' for _ in range(45)])
+                await ctx.send(msg)
     return
 
 
