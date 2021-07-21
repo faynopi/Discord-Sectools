@@ -1,16 +1,16 @@
 # TODO LIST
 - hashes
-  - search hashes
+  - search that hash
   - bruteforce hash
 - requirements.txt
-- wellcom message
-- greeting
 - random qute
 - add wiki
-- add dashboard commands for bot
+- log lib
+- gtfobins.github.io/
 
 # After finish
 - cogs
 - clean the code
 - test code for command injection and ...
 - make auth page... (@ITSNEXN)
+
