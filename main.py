@@ -39,7 +39,8 @@ async def decrypt(ctx, *arg):
                 print(f"{' '.join(arg[1:])} decoded from hex")
                 await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[1:]))}`")
             else:
-                print(f"{' '.join(arg[3:]).replace(arg[2],'')} decoded from hex")
+                print(
+                    f"{' '.join(arg[3:]).replace(arg[2],'')} decoded from hex")
                 await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[3:]).replace(arg[2],''))}`")
         except Exception:
             print(f"Couldn't decode the: {' '.join(arg[1:])}")
@@ -89,7 +90,7 @@ async def encrypt(ctx, *arg):
                 print(f"{' '.join(arg[3:])} encoded to hex")
                 tmp = str(hexEncode(' '.join(arg[3:])))
                 encrypted = ""
-                for i in range(0,len(tmp),2):
+                for i in range(0, len(tmp), 2):
                     encrypted += str(arg[2])
                     encrypted += tmp[i:i+2]
                 await ctx.send(f"\nHere you go: `{encrypted}`")
@@ -130,10 +131,12 @@ async def hashid(ctx, *arg):
             await ctx.send(f"Hash (`{i}`) not found :(\n"+''.join(['-' for _ in range(45)]))
         else:
             if len(res) == 2:
-                msg = f"Two most possible types for `{i}` :\n1) {res[0]}\n2) {res[1]}\n"+''.join(['-' for _ in range(45)])
+                msg = f"Two most possible types for `{i}` :\n1) {res[0]}\n2) {res[1]}\n"+''.join([
+                                                                                                 '-' for _ in range(45)])
                 await ctx.send(msg)
             elif len(res) == 1:
-                msg = f"Most possible type for `{i}` :\n1) {res[0]}\n"+''.join(['-' for _ in range(45)])
+                msg = f"Most possible type for `{i}` :\n1) {res[0]}\n"+''.join(
+                    ['-' for _ in range(45)])
                 await ctx.send(msg)
     return
 
@@ -151,9 +154,11 @@ async def info(ctx):
     embed.set_thumbnail(
         url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
     embed.add_field(name="$Github", value="Bot repo", inline=True)
-    embed.add_field(name="launched at:", value="june 18th of 2021", inline=False)
+    embed.add_field(name="launched at:",
+                    value="june 18th of 2021", inline=False)
     embed.add_field(name="Help Command:", value="$help", inline=True)
-    embed.set_footer(text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
+    embed.set_footer(
+        text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
     await ctx.send(embed=embed)
     return
 
@@ -161,9 +166,11 @@ async def info(ctx):
 # Help
 ##############################
 
+
 @ client.command(pass_context=True)
 async def help(ctx):
-    embed = discord.Embed(title="Need Help ?", description="These are our command!", color=0xe73232)
+    embed = discord.Embed(title="Need Help ?",
+                          description="These are our command!", color=0xe73232)
     embed.set_thumbnail(
         url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
     embed.add_field(name="$decrypt",
@@ -172,12 +179,13 @@ async def help(ctx):
                     value="arg[0]=type arg[1]=input | for more info  use $encrypt", inline=False)
     embed.add_field(name="$hashid", value="Hash identifier", inline=True)
     # embed.add_field(
-        # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
+    # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
     # embed.add_field(name="$privesc",
-                    # value="Show some cool scripts and commands for Privilege escalation", inline=False)
+    # value="Show some cool scripts and commands for Privilege escalation", inline=False)
     # embed.add_field(name="$lfi", value="show lfi payloads", inline=False)
     embed.add_field(name="$info", value="Bot info", inline=False)
-    embed.set_footer(text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
+    embed.set_footer(
+        text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
     await ctx.author.send(embed=embed)
     await ctx.send("I send you the command list! check your DM...")
     return
@@ -201,6 +209,7 @@ async def on_message(message):
 ##############################
 # On ready
 ##############################
+
 
 @ client.event
 async def on_ready():
