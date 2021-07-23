@@ -1,0 +1,5 @@
+{
+    "tokenFile": "./config/token.txt",
+    "prefix": "$",
+    "color": "#ff5555"
+}
