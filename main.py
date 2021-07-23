@@ -12,7 +12,6 @@ from discord.ext import commands
 from random import choice
 from os import listdir
 from random import choice
-import asyncio
 
 # Local librarys
 from libs.cfg import get_config
@@ -25,6 +24,8 @@ prefix = get_config("prefix")
 tokenPath = get_config("tokenFile")
 token = open(tokenPath, "r").readline()
 
+commands.view._quotes = {}
+commands.view._all_quotes = {}
 
 bot = commands.Bot(command_prefix=prefix)
 bot.remove_command("help")
