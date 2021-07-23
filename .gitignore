@@ -130,3 +130,6 @@ dmypy.json
 
 # Token file
 config/token.txt
+
+# pycharm
+.idea
