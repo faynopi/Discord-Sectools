@@ -1,219 +1,61 @@
+#!/bin/env python3
+#  _  _ _ _     _   ____      _____ __   __  _
+# | || | | | __| |_|__ /_ _  |_   _/  \ /  \| |___
+# | __ |_  _/ _| / /|_ \ '_|   | || () | () | (_-<
+# |_||_| |_|\__|_\_\___/_|     |_| \__/ \__/|_/__/
+#
+# @Itsnexn & @Lixpy
+# Github: https://github.com/Itsnexn/Discord-H4ck3rT00ls
+
 import discord
 from discord.ext import commands
 from random import choice
-from os import environ
+from os import listdir
+from random import choice
+import asyncio
 
-# Help Pages
-from Help import *
+# Local librarys
+from libs.cfg import get_config
 
-# For Encoding and Decoding
-from DecodeEncode import *
+# ==============================
+# => Local variables
+# ==============================
 
-# Hash Identifier
-from HashID import HashID
-
-client = commands.Bot(command_prefix='$')
-client.remove_command("help")
+prefix = get_config("prefix")
+tokenPath = get_config("tokenFile")
+token = open(tokenPath, "r").readline()
 
 
-##############################
-# Decrypt
-##############################
+bot = commands.Bot(command_prefix=prefix)
+bot.remove_command("help")
 
-@ client.command()
-async def decrypt(ctx, *arg):
-    if not arg:
-        print("$decrypt Help massage sent")
-        await ctx.send(decryptHelp)
-    elif arg[0] == "b64":
+# ==============================
+# => Load Extensions
+# ==============================
+
+print("\n")
+print("=" * 30)
+print("Loading the extensions:")
+print("=" * 30)
+
+for extension in listdir("./cogs"):
+    if extension.endswith(".py"):
         try:
-            print(f"{' '.join(arg[1:])} decoded from base64")
-            await ctx.send(f"\nHere you go: `{base64Decode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Sorry i couldn't decode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
-
-    elif arg[0] == "hex":
-        try:
-            if arg[1] != '-s':
-                print(f"{' '.join(arg[1:])} decoded from hex")
-                await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[1:]))}`")
-            else:
-                print(
-                    f"{' '.join(arg[3:]).replace(arg[2],'')} decoded from hex")
-                await ctx.send(f"\nHere you go: `{hexDecode(' '.join(arg[3:]).replace(arg[2],''))}`")
-        except Exception:
-            print(f"Couldn't decode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
-
-    elif arg[0] == "rot13":
-        try:
-            print(f"{' '.join(arg[1:])} decoded from rot13")
-            await ctx.send(f"\nHere you go: `{rot13Decode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Couldn't decode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
-
-    elif arg[0] == "url":
-        try:
-            print(f"{' '.join(arg[1:])} URL decoded")
-            await ctx.send(f"\nHere you go: `{urlDecode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Couldn't decode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't decode the: `{' '.join(arg[1:])}` as {arg[0]}\n try to read the $decrypt or $help for more information")
-    return
+            bot.load_extension(f"cogs.{extension[:-3]}")
+            print(f"[Success] {extension} loaded successfully.")
+        except Exception as e:
+            print(f"[ERROR]\tAn error occurred while loading {extension}\n" + str(e) + "\n")
 
 
-##############################
-# Encrypt
-##############################
 
-@ client.command()
-async def encrypt(ctx, *arg):
-    if not arg:
-        print("$encrypt Help massage sended")
-        await ctx.send(encryptHelp)
-    elif arg[0] == "b64":
-        try:
-            print(f"{' '.join(arg[1:])} encoded from base64")
-            await ctx.send(f"\nHere you go: `{base64Encode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Sorry i couldn't encode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
+# ==============================
+# => On Ready Event
+# ==============================
 
-    elif arg[0] == "hex":
-        try:
-            if arg[1] != '-s':
-                print(f"{' '.join(arg[1:])} encoded to hex")
-                await ctx.send(f"\nHere you go: `{hexEncode(' '.join(arg[1:]))}`")
-            else:
-                print(f"{' '.join(arg[3:])} encoded to hex")
-                tmp = str(hexEncode(' '.join(arg[3:])))
-                encrypted = ""
-                for i in range(0, len(tmp), 2):
-                    encrypted += str(arg[2])
-                    encrypted += tmp[i:i+2]
-                await ctx.send(f"\nHere you go: `{encrypted}`")
-        except Exception:
-            print(f"Couldn't encode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
-
-    elif arg[0] == "rot13":
-        try:
-            print(f"{' '.join(arg[1:])} encoded from rot13")
-            await ctx.send(f"\nHere you go: `{rot13Encode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Couldn't decode the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
-
-    elif arg[0] == "url":
-        try:
-            print(f"{' '.join(arg[1:])} URL encoded")
-            await ctx.send(f"\nHere you go: `{urlEncode(' '.join(arg[1:]))}`")
-        except Exception:
-            print(f"Couldn't encoded the: {' '.join(arg[1:])}")
-            await ctx.send(f"\nSorry i couldn't encode the `{' '.join(arg[1:])}` to {arg[0]}\n try to read the $encrypt or $help for more information")
-    return
-
-
-##############################
-# Hash Identifier
-##############################
-
-@ client.command()
-async def hashid(ctx, *arg):
-    if not arg:
-        await ctx.send(hashidHelp)
-        return
-    for i in arg[0:]:
-        res = HashID(i)
-        if not res:
-            await ctx.send(f"Hash (`{i}`) not found :(\n"+''.join(['-' for _ in range(45)]))
-        else:
-            if len(res) == 2:
-                msg = f"Two most possible types for `{i}` :\n1) {res[0]}\n2) {res[1]}\n"+''.join([
-                                                                                                 '-' for _ in range(45)])
-                await ctx.send(msg)
-            elif len(res) == 1:
-                msg = f"Most possible type for `{i}` :\n1) {res[0]}\n"+''.join(
-                    ['-' for _ in range(45)])
-                await ctx.send(msg)
-    return
-
-
-##############################
-# Bot info
-##############################
-
-@ client.command()
-async def info(ctx):
-    embed = discord.Embed(title="H4ck3r T00l",
-                          description="A tool for hackers made by N00B5", color=0xe73232)
-    embed.set_author(name="Join our discord server", url="https://discord.gg/aeay3v3cfX",
-                     icon_url="https://github.com/Itsnexn/Discord-H4ck3rT00ls/blob/main/R3versePl4net_logo.jpg?raw=true")
-    embed.set_thumbnail(
-        url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
-    embed.add_field(name="$Github", value="Bot repo", inline=True)
-    embed.add_field(name="launched at:",
-                    value="june 18th of 2021", inline=False)
-    embed.add_field(name="Help Command:", value="$help", inline=True)
-    embed.set_footer(
-        text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
-    await ctx.send(embed=embed)
-    return
-
-##############################
-# Help
-##############################
-
-
-@ client.command(pass_context=True)
-async def help(ctx):
-    embed = discord.Embed(title="Need Help ?",
-                          description="These are our command!", color=0xe73232)
-    embed.set_thumbnail(
-        url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
-    embed.add_field(name="$decrypt",
-                    value="arg[0]=type arg[1]=input | for more info use $decrypt", inline=False)
-    embed.add_field(name="$encrypt",
-                    value="arg[0]=type arg[1]=input | for more info  use $encrypt", inline=False)
-    embed.add_field(name="$hashid", value="Hash identifier", inline=True)
-    # embed.add_field(
-    # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
-    # embed.add_field(name="$privesc",
-    # value="Show some cool scripts and commands for Privilege escalation", inline=False)
-    # embed.add_field(name="$lfi", value="show lfi payloads", inline=False)
-    embed.add_field(name="$info", value="Bot info", inline=False)
-    embed.set_footer(
-        text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
-    await ctx.author.send(embed=embed)
-    await ctx.send("I send you the command list! check your DM...")
-    return
-
-"""
-##############################
-# Events
-##############################
-
-gretings = ["hi", "hello", "watsup", "yo"]
-gretings_res = ["Hello!", "yo, wyd?", "Hey i heard you!", "Welcome back!"]
-
-@ client.listen()
-async def on_message(message):
-    for greting in gretings:
-        if greting in message.content.lower() and not message.author.bot:
-            await message.channel.send(f"{message.author.mention}\n {choice(gretings_res)}")
-            await client.process_commands(message)
-"""
-
-##############################
-# On ready
-##############################
-
-
-@ client.event
+@ bot.event
 async def on_ready():
-    await client.change_presence(activity=discord.CustomActivity("Hello World", emoji="🖥️"))
     print('Im ready!')
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"your command in {len(bot.guilds)} servers!"))
 
-client.run(environ['TOKEN'])
+# Run the bot
+bot.run(token)
