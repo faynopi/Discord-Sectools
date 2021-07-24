@@ -40,10 +40,10 @@ class Main(commands.Cog):
                               description="These are our command!", color=0xe73232)
         embed.set_thumbnail(
             url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
-        embed.add_field(name="$decrypt",
-                        value="arg[0]=type arg[1]=input | for more info use $decrypt", inline=False)
-        embed.add_field(name="$encrypt",
-                        value="arg[0]=type arg[1]=input | for more info  use $encrypt", inline=False)
+        embed.add_field(name="$decode",
+                        value="arg[0]=type arg[1]=input | for more info use $decode", inline=False)
+        embed.add_field(name="$encode",
+                        value="arg[0]=type arg[1]=input | for more info  use $encode", inline=False)
         embed.add_field(name="$hashid", value="Hash identifier", inline=True)
         # embed.add_field(
         # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)

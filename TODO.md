@@ -7,7 +7,4 @@
 - log lib
 - gtfobins.github.io/
 - make auth page... (@ITSNEXN)
-
-# Bugs
-- cat encrypt or decrypt `"` and `'`
-
+- Add -x for $encrypt part in cogs/Hashes.py (add if condition for every type) to give true to IsHex keyword functions
