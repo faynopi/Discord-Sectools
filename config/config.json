@@ -1,5 +1,7 @@
 {
     "tokenFile": "./config/token.txt",
+    "r3vShellsFile": "./libs/r3vShells.json",
     "prefix": "$",
-    "color": "#ff5555"
+    "color": "#ff5555",
+    "defaultShell": "/bin/bash"
 }

@@ -1,7 +1,11 @@
+from libs.cfg import get_config
+
+
 decodeHelp = """\n```
 # $decode
 Usage:
     $decode (type) [-s to set a prefix for encoded hex like 0x or \\x or ...] (input)
+
 Args:
 +---------+---------------+--------------------------------------------------------+
 | Command |     usage     |                      example                           |
@@ -18,6 +22,7 @@ encodeHelp = """\n```
 # $encode
 Usage:
     $encode (type) [-s to set a prefix for hex encode like 0x or \\x or ...] (input)
+
 Args:
 +---------+---------------+--------------------------------------------------------+
 | Command |     usage     |                      example                           |
@@ -33,6 +38,7 @@ hashidHelp = """\n```
 # $hashid
 Usage:
     $hashid (input)
+
 Args:
 +-----------------+------------------------------------------------------+
 |      usage      |                      example                         |
@@ -41,12 +47,13 @@ Args:
 +-----------------+------------------------------------------------------+
 ```"""
 
-encryptHelp = """\n```
-# $encrypt
+hashesHelp = """\n```
+# $hashit
 ** NOTE: -x is not supported yet. **
 
 Usage:
-    $encrypt (type) [-x for texts that are not printable hex them and pass -x to unhex them and then hash them] (input)
+    $hashit (type) [-x for texts that are not printable hex them and pass -x to unhex them and then hash them] (input)
+
 Args:
 +-----------+---------------------------+------------------------------------+
 | Command   |          Usage            |             example                |
@@ -67,3 +74,24 @@ Args:
 | blake2s   | blake2s [-x] TextToHash   | $encrypt blake2s [-x] TextToHash   |
 +-----------+--------------+------------+------------------------------------+
 ```"""
+
+r3vHelp = f"""\n```
+# $r3v
+** NOTE: default shell is "{get_config("defaultShell")}" **
+
+Usage:
+    $r3v (cmd)
+    
+Args:
++---------+---------------------------+---------------------------------------------------------+
+| Command |         Usage             |                      Example                            |
++---------+---------------------------+---------------------------------------------------------+
+| list    | list all of the revShells | $r3v list                                               |
+| search  | search with keyword       | $r3v search (keyword)                                   |
+| os      | Search operating systems  | $r3v os [windows, linux, mac]                           |
+| gen     | Create reverse shell      | $r3v gen (name *required)                               |
+|         |                           |     (ip) (port) (shell # this arg isnt required)        |
++---------+---------------------------+---------------------------------------------------------+
+```
+"""
+
