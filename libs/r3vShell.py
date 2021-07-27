@@ -29,7 +29,7 @@ def list():
         len2 = 20 - len(item["desc"])
         tmp.append(
             f'{item["name"]} {" " * len1} {item["desc"]} {" " * len2} {item["meta"]}')
-        return tmp
+    return tmp
         
 
 def osSearch(keyword):

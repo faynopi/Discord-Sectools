@@ -26,7 +26,11 @@ class R3v(commands.Cog):
         elif arg[0].lower() == "list":
             try:
                 newline = "\n"
-                await ctx.channel.send(f"""```{newline.join(list())}```""")
+                part1 = newline.join(list())[:1515]
+                part2 = newline.join(list())[1515:]
+                await ctx.author.send(f"""```{part1}```""")
+                await ctx.author.send(f"""```{part2}```""")
+                await ctx.channel.send("I sent you the reverse shell list! Check your DM...")
             except Exception as e:
                 await ctx.channel.send("Unexpected Error!")
                 print(f"Unexpected Error! in {__name__}\nError msg:{e}")
@@ -45,8 +49,6 @@ class R3v(commands.Cog):
 
         elif arg[0].lower() == "gen":
             try:
-                print(arg)
-                print(len(arg))
                 name = arg[1]
                 ip = arg[2]
                 port = arg[3]
@@ -63,7 +65,10 @@ class R3v(commands.Cog):
                     shell = get_config("defaultShell")
 
                 newline = "\n"
-                await ctx.channel.send(f"""\n```{r3vIt(name, ip, port, shell)}```""")
+                if r3vIt(name, ip, port, shell) == None:
+                    await ctx.channel.send("Unexpected Error!\n basic syntax: \n```$r3v gen (name *required) (ip *required) (port *required) (shell)```read $r3v for more information.")
+                else:
+                    await ctx.channel.send(f"""\n```{r3vIt(name, ip, port, shell)}```""")
             except Exception as e:
                 await ctx.channel.send("Unexpected Error!\n basic syntax: \n```$r3v gen (name *required) (ip *required) (port *required) (shell)```read $r3v for more information.")
                 print(f"Unexpected Error! in {__name__}\nError msg:{e}")

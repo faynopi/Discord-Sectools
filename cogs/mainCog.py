@@ -37,16 +37,17 @@ class Main(commands.Cog):
     @ commands.command(pass_context=True)
     async def help(self, ctx):
         embed = discord.Embed(title="Need Help ?",
-                              description="These are our command!", color=0xe73232)
+                              description="These are our command!\nyou can use each command without arguments to get help for that command", color=0xe73232)
         embed.set_thumbnail(
             url="https://raw.githubusercontent.com/Itsnexn/Discord-H4ck3rT00ls/main/logo.jpg")
         embed.add_field(name="$decode",
-                        value="arg[0]=type arg[1]=input | for more info use $decode", inline=False)
+                        value="decode the argument", inline=False)
         embed.add_field(name="$encode",
-                        value="arg[0]=type arg[1]=input | for more info  use $encode", inline=False)
-        embed.add_field(name="$hashid", value="Hash identifier", inline=True)
-        # embed.add_field(
-        # name="$r3", value="arg[0]=type arg[1]=ip arg[3]=port | for more info use $r3", inline=False)
+                        value="encode the argument", inline=False)
+        embed.add_field(name="$hashid", value="Hash identifier", inline=False)
+        embed.add_field(name="$hashit", value="Hash generator", inline=False)
+        embed.add_field(
+        name="$r3v", value="reverse shell generator", inline=False)
         # embed.add_field(name="$privesc",
         # value="Show some cool scripts and commands for Privilege escalation", inline=False)
         # embed.add_field(name="$lfi", value="show lfi payloads", inline=False)
@@ -54,7 +55,7 @@ class Main(commands.Cog):
         embed.set_footer(
             text="Hack the planet | made by @itsnexn and @LixPy with ❤️")
         await ctx.author.send(embed=embed)
-        await ctx.send("I send you the command list! check your DM...")
+        await ctx.channel.send("I sent you the command list! Check your DM...")
         return
 
 def setup(bot):
